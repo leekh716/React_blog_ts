@@ -3,17 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var postsCtrl = require("./posts.ctrl");
 var posts = express.Router();
-var printInfo = function (req, res) {
-    res.send({
-        method: req.method,
-        path: req.originalUrl,
-        params: req.params,
-    });
-};
-posts.get('/', printInfo);
+posts.get('/', postsCtrl.list);
 posts.post('/', postsCtrl.write);
-posts.get('/:id', printInfo);
-posts.delete('/:id', printInfo);
-posts.put('/:id', printInfo);
-posts.patch('/:id', printInfo);
+posts.get('/:id', postsCtrl.read);
+posts.delete('/:id', postsCtrl.remove);
+posts.put('/:id', postsCtrl.replace);
+posts.patch('/:id', postsCtrl.update);
 exports.default = posts;

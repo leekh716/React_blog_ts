@@ -1,21 +1,13 @@
 import * as express from 'express';
 import * as postsCtrl from './posts.ctrl';
 
-const posts = express.Router();
+const posts: express.Router = express.Router();
 
-const printInfo = (req: express.Request, res: express.Response) => {
-	res.send({
-		method: req.method,
-		path: req.originalUrl,
-		params: req.params,
-	});
-};
-
-posts.get('/', printInfo);
+posts.get('/', postsCtrl.list);
 posts.post('/', postsCtrl.write);
-posts.get('/:id', printInfo);
-posts.delete('/:id', printInfo);
-posts.put('/:id', printInfo);
-posts.patch('/:id', printInfo);
+posts.get('/:id', postsCtrl.read);
+posts.delete('/:id', postsCtrl.remove);
+posts.put('/:id', postsCtrl.replace);
+posts.patch('/:id', postsCtrl.update);
 
 export default posts;
