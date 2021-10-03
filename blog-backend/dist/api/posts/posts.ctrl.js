@@ -11,8 +11,8 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.update = exports.replace = exports.remove = exports.read = exports.list = exports.write = void 0;
-var postId = 1; // postId:number 로 안해도 초기값으로 추론할 수 있어서
+exports.update = exports.remove = exports.read = exports.list = exports.write = void 0;
+var postId = 1;
 var posts = [
     {
         id: 1,
@@ -73,24 +73,6 @@ var remove = function (req, res) {
     res.send();
 };
 exports.remove = remove;
-/* 포스트 수정(교체)
-PUT /api/posts/:id
-{ title, body }
-*/
-var replace = function (req, res) {
-    var id = req.params.id;
-    var index = posts.findIndex(function (post) { return post.id.toString() === id; });
-    if (index === -1) {
-        res.statusCode = 404;
-        res.send({
-            message: '포스트가 존재하지 않습니다.',
-        });
-        return;
-    }
-    posts[index] = __assign({ id: id }, req.body);
-    res.send(posts[index]);
-};
-exports.replace = replace;
 /* 포스트 수정(특정 필드 변경)
 PATCH /api/posts/:id
 { title, body }
